@@ -26,3 +26,5 @@ npm run build
 npm run doc
 ```
 # WorkshopCICD
+
+Tjenare
