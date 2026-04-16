@@ -6,13 +6,27 @@ template.innerHTML = `<div>
                         <textarea rows="20" cols="50" id="text"></textarea><br>
                         <input type="button" value="To Robber" id="robber">
                         <input type="button" value="To Allsprak" id="allsprak">
-                        <input type="button" value="Reverse" id="reverse">
+                        <input type="button" value="Revert" id="revert">
                       </div>`
+
+const sheet = new CSSStyleSheet()
+sheet.replaceSync(`
+    textarea {
+        background-color: pink;
+        border: dotted;
+        color: blue;
+    }
+        
+    h1 {
+        color: red;
+    }`)
 
 class CoolApp extends HTMLElement {
     constructor() {
         super()
         this.attachShadow({ mode: "open" }).appendChild(template.content.cloneNode(true))
+
+        this.shadowRoot.adoptedStyleSheets = [sheet];
 
         const robber = this.shadowRoot.getElementById("robber")
         robber.addEventListener("click", this.convertTo(toRobber))
@@ -20,7 +34,7 @@ class CoolApp extends HTMLElement {
         const allsprak = this.shadowRoot.getElementById("allsprak")
         allsprak.addEventListener("click", this.convertTo(toAllsprak))
 
-        const reverse = this.shadowRoot.getElementById("reverse")
+        const reverse = this.shadowRoot.getElementById("revert")
         reverse.addEventListener("click", this.convertTo(toNormal))
     }
 
